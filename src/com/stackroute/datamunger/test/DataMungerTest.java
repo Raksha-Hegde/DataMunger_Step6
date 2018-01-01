@@ -548,7 +548,7 @@ public class DataMungerTest {
 		int totalRecordsExpected = 577;
 
 		HashMap dataSet = query.executeQuery("select * from data/ipl.csv");
-
+		
 		boolean totalColumnsExpected = dataSet.entrySet().iterator().next().toString().split(",").length == 18;
 
 		assertNotNull("testSelectAllWithoutWhereClause() : Empty Dataset returned", dataSet);
