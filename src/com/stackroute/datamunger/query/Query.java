@@ -11,6 +11,7 @@ import com.stackroute.datamunger.reader.CsvQueryProcessor;
 import com.stackroute.datamunger.reader.QueryProcessingEngine;
 
 public class Query {
+	HashMap resultset;
 
 	/*
 	 * This method will: 1.parse the query and populate the QueryParameter
@@ -35,16 +36,37 @@ public class Query {
 		 * where conditions i.e. conditions, aggregate functions, order by,
 		 * group by clause
 		 */
-		switch (queryParameter.getQUERY_TYPE()) {
 
+		switch (queryParameter.getQUERY_TYPE()) {
+		case "Simple query":
+		case "where": {
+			CsvQueryProcessor queryProcessor = new CsvQueryProcessor();
+			resultset = queryProcessor.getResultSet(queryParameter);
+			break;
+		}
+		case "group by": {
+			CsvGroupByQueryProcessor queryProcessor = new CsvGroupByQueryProcessor();
+			resultset = queryProcessor.getResultSet(queryParameter);
+			break;
+		}
+		case "group by with Aggregate": {
+			CsvGroupByAggregateQueryProcessor queryProcessor = new CsvGroupByAggregateQueryProcessor();
+			resultset = queryProcessor.getResultSet(queryParameter);
+			break;
+		}
+		case "Aggregate": {
+			CsvAggregateQueryProcessor queryProcessor = new CsvAggregateQueryProcessor();
+			resultset = queryProcessor.getResultSet(queryParameter);
+			break;
+		}
 		}
 		/*
 		 * call the getResultSet() method of CsvQueryProcessor class by passing
 		 * the QueryParameter Object to it. This method is supposed to return
 		 * resultSet which is a HashMap
 		 */
-		CsvQueryProcessor queryProcessor = new CsvQueryProcessor();
-		return queryProcessor.getResultSet(queryParameter);
+
+		return resultset;
 	}
 
 }

@@ -29,8 +29,6 @@ public class JsonWriter {
 		try {
 			bufferedWriter = new BufferedWriter(new FileWriter("data/result.json"));
 			bufferedWriter.write(result);
-			System.out.println("Result Set");
-			System.out.println(result);
 			/*
 			 * return true if file writing is successful
 			 */

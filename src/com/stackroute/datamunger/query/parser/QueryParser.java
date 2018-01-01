@@ -28,12 +28,20 @@ public class QueryParser {
 
 			if (queryString.contains(" order by")) {
 				queryParameter.setOrderByFields(getOrderByFields(replaceCharacters(queryString)));
+				queryParameter.setQUERY_TYPE("order by");
 			}
 			if (queryString.contains(" group by")) {
 				queryParameter.setGroupByFields(getGroupByFields(replaceCharacters(queryString)));
+				queryParameter.setQUERY_TYPE("group by");
 			}
 			if (queryString.contains("(")) {
 				queryParameter.setAggregateFunctions(getAggregateFunctions(replaceCharacters(queryString)));
+				String queryType = queryParameter.getQUERY_TYPE();
+				if (queryType.equalsIgnoreCase("where") || queryType.equalsIgnoreCase("Simple query")) {
+					queryParameter.setQUERY_TYPE("Aggregate");
+				} else {
+					queryParameter.setQUERY_TYPE(queryType + " with Aggregate");
+				}
 			}
 
 		}
