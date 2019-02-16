@@ -59,6 +59,7 @@ public class Query {
 			resultset = queryProcessor.getResultSet(queryParameter);
 			break;
 		}
+		
 		}
 		/*
 		 * call the getResultSet() method of CsvQueryProcessor class by passing
